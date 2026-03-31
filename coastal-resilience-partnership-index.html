@@ -23,9 +23,9 @@
     --border:  rgba(8,145,178,0.2);
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
   html { scroll-behavior: smooth; }
-
+ 
   body {
     font-family: 'Source Serif 4', Georgia, serif;
     background: var(--navy);
@@ -33,7 +33,7 @@
     overflow-x: hidden;
     line-height: 1.7;
   }
-
+ 
   /* ── NAV ── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -75,7 +75,7 @@
     transition: background 0.2s, transform 0.2s;
   }
   .nav-cta:hover { background: var(--teal-lt); transform: translateY(-1px); }
-
+ 
   /* ── HERO ── */
   .hero {
     position: relative; min-height: 100vh;
@@ -84,7 +84,7 @@
     text-align: center; overflow: hidden;
     padding: 8rem 2rem 6rem;
   }
-
+ 
   /* Animated ocean gradient */
   .hero-bg {
     position: absolute; inset: 0;
@@ -100,7 +100,7 @@
     50%  { filter: hue-rotate(8deg) brightness(1.06); }
     100% { filter: hue-rotate(-5deg) brightness(0.96); }
   }
-
+ 
   /* Wave SVG layers */
   .waves-container {
     position: absolute; bottom: 0; left: 0; right: 0;
@@ -116,7 +116,7 @@
     0%   { transform: translateX(0); }
     100% { transform: translateX(50%); }
   }
-
+ 
   /* Floating particles */
   .particles { position: absolute; inset: 0; pointer-events: none; }
   .particle {
@@ -130,9 +130,9 @@
     80%  { opacity: 0.3; }
     100% { opacity: 0; transform: translateY(-200px) scale(1.5); }
   }
-
+ 
   .hero-content { position: relative; z-index: 2; max-width: 900px; }
-
+ 
   .hero-badge {
     display: inline-flex; align-items: center; gap: 0.6rem;
     font-family: 'DM Mono', monospace;
@@ -151,7 +151,7 @@
     0%, 100% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.5; transform: scale(0.7); }
   }
-
+ 
   .hero-title {
     font-family: 'Playfair Display', serif;
     font-size: clamp(3rem, 7vw, 6rem);
@@ -169,13 +169,13 @@
     color: var(--mist); margin-bottom: 2rem;
     animation: fadeUp 0.8s 0.25s ease both;
   }
-
+ 
   .hero-desc {
     font-size: 1.18rem; font-weight: 300;
     color: var(--mist); max-width: 680px; margin: 0 auto 3rem;
     animation: fadeUp 0.8s 0.38s ease both;
   }
-
+ 
   .hero-actions {
     display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
     animation: fadeUp 0.8s 0.5s ease both;
@@ -197,7 +197,7 @@
     transition: all 0.25s;
   }
   .btn-ghost:hover { border-color: var(--teal-lt); background: rgba(34,211,238,0.07); transform: translateY(-2px); }
-
+ 
   .hero-stats {
     display: flex; gap: 4rem; justify-content: center;
     margin-top: 5rem; padding-top: 3rem;
@@ -215,12 +215,12 @@
     font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--muted); margin-top: 0.4rem;
   }
-
+ 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(28px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-
+ 
   /* ── SECTIONS ── */
   section { padding: 7rem 3rem; }
   .container { max-width: 1160px; margin: 0 auto; }
@@ -240,7 +240,7 @@
     font-size: 1.08rem; font-weight: 300;
     color: var(--mist); max-width: 680px; line-height: 1.8;
   }
-
+ 
   /* ── ABOUT / ARISE ── */
   .about { background: var(--ocean); }
   .about-grid {
@@ -271,7 +271,7 @@
     font-size: 1rem; font-weight: 300; color: var(--mist); line-height: 1.75;
   }
   .about-card + .about-card { margin-top: 1.5rem; }
-
+ 
   .arise-badge {
     display: inline-block;
     font-family: 'DM Mono', monospace;
@@ -281,7 +281,7 @@
     color: var(--seafoam);
     padding: 0.35rem 0.85rem; margin-bottom: 1.5rem;
   }
-
+ 
   /* ── CHALLENGE ── */
   .challenge { background: var(--navy); }
   .challenge-grid {
@@ -320,7 +320,7 @@
     font-size: 0.95rem; font-weight: 300;
     color: var(--muted); line-height: 1.75;
   }
-
+ 
   /* ── WHAT WE OFFER ── */
   .offer { background: var(--ocean); }
   .offer-intro { max-width: 680px; margin-bottom: 4rem; }
@@ -358,7 +358,7 @@
     padding: 0.25rem 0.65rem;
   }
   .pillar:hover .tag { border-color: rgba(8,145,178,0.4); color: var(--teal-lt); }
-
+ 
   /* ── SCORECARD CTA ── */
   .scorecard-section { background: var(--navy); }
   .scorecard-inner {
@@ -386,7 +386,7 @@
     background: rgba(8,145,178,0.1); border: 1px solid var(--border);
     color: var(--teal-lt); padding: 0.3rem 0.7rem;
   }
-
+ 
   /* ── STAKEHOLDERS ── */
   .stakeholders { background: var(--ocean); }
   .stakeholders-grid {
@@ -409,7 +409,7 @@
     font-size: 0.9rem; color: var(--muted);
     font-weight: 300; line-height: 1.7;
   }
-
+ 
   /* ── BLUE FINANCE ── */
   .blue-finance { background: var(--deep); }
   .finance-grid {
@@ -469,7 +469,7 @@
     text-align: center; color: var(--teal); font-size: 1.2rem;
     margin: -0.5rem 0 0.5rem 2.5rem;
   }
-
+ 
   /* ── JOIN CTA ── */
   .join { background: var(--navy); text-align: center; padding: 8rem 3rem; }
   .join-inner { max-width: 720px; margin: 0 auto; }
@@ -511,7 +511,7 @@
     font-family: 'DM Mono', monospace;
     font-size: 0.62rem; letter-spacing: 0.1em; color: var(--muted);
   }
-
+ 
   /* ── FOOTER ── */
   footer {
     background: #040B16; padding: 3rem;
@@ -546,7 +546,7 @@
     font-family: 'DM Mono', monospace;
     font-size: 0.6rem; color: #2A3E52;
   }
-
+ 
   /* ── SCROLL REVEAL ── */
   .reveal {
     opacity: 0; transform: translateY(32px);
@@ -556,7 +556,7 @@
   .reveal-delay-1 { transition-delay: 0.12s; }
   .reveal-delay-2 { transition-delay: 0.24s; }
   .reveal-delay-3 { transition-delay: 0.36s; }
-
+ 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     nav { padding: 1rem 1.5rem; }
@@ -575,7 +575,7 @@
 </style>
 </head>
 <body>
-
+ 
 <!-- NAV -->
 <nav>
   <div class="nav-logo">
@@ -591,11 +591,11 @@
   </ul>
   <a href="#join" class="nav-cta">Get Involved</a>
 </nav>
-
+ 
 <!-- HERO -->
 <section class="hero" id="hero">
   <div class="hero-bg"></div>
-
+ 
   <!-- SVG waves -->
   <div class="waves-container">
     <svg class="wave wave1" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
@@ -608,28 +608,28 @@
       <path d="M0,90 C240,50 480,115 720,85 C960,55 1200,105 1440,90 L1440,120 L0,120 Z" fill="rgba(8,145,178,0.12)"/>
     </svg>
   </div>
-
+ 
   <!-- Particles -->
   <div class="particles" id="particles"></div>
-
+ 
   <div class="hero-content">
     <div class="hero-badge">
       <span class="hero-badge-dot"></span>
       ARISE-US Global Initiative · Now Accepting Partners
     </div>
-
+ 
     <h1 class="hero-title">Coastal <em>Resilience</em></h1>
     <div class="hero-title-line2">Partnership</div>
-
+ 
     <p class="hero-desc">
       A global capacity-building initiative helping public and private stakeholders develop, assess, and act on coastal resilience strategy — from asset-level adaptation to ecosystem-scale transformation.
     </p>
-
+ 
     <div class="hero-actions">
       <a href="#join" class="btn-primary">Join the Partnership</a>
       <a href="#offer" class="btn-ghost">Explore the Programme →</a>
     </div>
-
+ 
     <div class="hero-stats">
       <div class="hero-stat">
         <span class="hero-stat-num">1B+</span>
@@ -650,7 +650,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- ABOUT -->
 <section class="about" id="about">
   <div class="container">
@@ -684,7 +684,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- CHALLENGE -->
 <section class="challenge" id="challenge">
   <div class="container">
@@ -712,7 +712,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- OFFER -->
 <section class="offer" id="offer">
   <div class="container">
@@ -781,7 +781,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- SCORECARD -->
 <section class="scorecard-section" id="scorecard">
   <div class="container">
@@ -813,7 +813,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- STAKEHOLDERS -->
 <section class="stakeholders" id="stakeholders">
   <div class="container">
@@ -853,7 +853,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- BLUE FINANCE -->
 <section class="blue-finance" id="finance">
   <div class="container">
@@ -915,7 +915,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- JOIN -->
 <section class="join" id="join">
   <div class="join-inner">
@@ -931,7 +931,7 @@
     <p class="join-note reveal">No spam. We'll reach out to understand your context and match you to the right entry point.</p>
   </div>
 </section>
-
+ 
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -949,7 +949,7 @@
     <div class="footer-copy">© 2026 Coastal Resilience Partnership · ARISE-US</div>
   </div>
 </footer>
-
+ 
 <script>
 // Particle generator
 (function() {
@@ -968,7 +968,7 @@
     container.appendChild(p);
   }
 })();
-
+ 
 // Scroll reveal
 const revealEls = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver((entries) => {
@@ -977,7 +977,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.12 });
 revealEls.forEach(el => observer.observe(el));
-
+ 
 // Smooth nav highlight
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
