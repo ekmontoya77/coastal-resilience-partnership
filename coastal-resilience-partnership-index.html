@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coastal Resilience Partnership · ARISE-US Global Initiative</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:    #070F1C;
+    --deep:    #0A1628;
+    --ocean:   #0C2340;
+    --teal:    #0891B2;
+    --teal-lt: #22D3EE;
+    --seafoam: #06D6A0;
+    --amber:   #F59E0B;
+    --cream:   #EFF6FF;
+    --mist:    #BAE6FD;
+    --text:    #E2EEF8;
+    --muted:   #7BA7C2;
+    --border:  rgba(8,145,178,0.2);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--navy);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(7,15,28,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .nav-logo-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 700;
+    color: #fff; letter-spacing: 0.03em;
+  }
+  .nav-logo-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem; color: var(--teal-lt);
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--teal-lt); }
+  .nav-cta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    background: var(--teal); color: #fff;
+    border: none; padding: 0.6rem 1.4rem; cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .nav-cta:hover { background: var(--teal-lt); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; overflow: hidden;
+    padding: 8rem 2rem 6rem;
+  }
+
+  /* Animated ocean gradient */
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 120%, rgba(8,145,178,0.35) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 20% 80%, rgba(6,214,160,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 30% at 80% 70%, rgba(8,145,178,0.1) 0%, transparent 55%),
+      linear-gradient(175deg, #070F1C 0%, #0A1628 40%, #0C2340 70%, #071520 100%);
+    animation: heroShift 14s ease-in-out infinite alternate;
+  }
+  @keyframes heroShift {
+    0%   { filter: hue-rotate(0deg) brightness(1); }
+    50%  { filter: hue-rotate(8deg) brightness(1.06); }
+    100% { filter: hue-rotate(-5deg) brightness(0.96); }
+  }
+
+  /* Wave SVG layers */
+  .waves-container {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 260px; overflow: hidden;
+  }
+  .wave {
+    position: absolute; bottom: 0; left: -50%; width: 200%;
+  }
+  .wave1 { animation: waveAnim 9s linear infinite; opacity: 0.4; }
+  .wave2 { animation: waveAnim 13s linear infinite reverse; opacity: 0.25; margin-bottom: 10px; }
+  .wave3 { animation: waveAnim 7s linear infinite; opacity: 0.15; margin-bottom: 22px; }
+  @keyframes waveAnim {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(50%); }
+  }
+
+  /* Floating particles */
+  .particles { position: absolute; inset: 0; pointer-events: none; }
+  .particle {
+    position: absolute; border-radius: 50%;
+    background: var(--teal-lt); opacity: 0;
+    animation: float var(--dur, 8s) var(--delay, 0s) ease-in-out infinite;
+  }
+  @keyframes float {
+    0%   { opacity: 0; transform: translateY(100px) scale(0); }
+    20%  { opacity: 0.6; }
+    80%  { opacity: 0.3; }
+    100% { opacity: 0; transform: translateY(-200px) scale(1.5); }
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 900px; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--teal-lt);
+    border: 1px solid rgba(34,211,238,0.35);
+    padding: 0.4rem 1rem; margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-badge-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--seafoam);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 900; line-height: 1.05;
+    color: #fff; margin-bottom: 0.3rem;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+  .hero-title em {
+    font-style: italic; color: var(--teal-lt);
+  }
+  .hero-title-line2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 4.2rem);
+    font-weight: 400; font-style: italic;
+    color: var(--mist); margin-bottom: 2rem;
+    animation: fadeUp 0.8s 0.25s ease both;
+  }
+
+  .hero-desc {
+    font-size: 1.18rem; font-weight: 300;
+    color: var(--mist); max-width: 680px; margin: 0 auto 3rem;
+    animation: fadeUp 0.8s 0.38s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.5s ease both;
+  }
+  .btn-primary {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+    background: var(--teal); color: #fff;
+    padding: 1rem 2.5rem; text-decoration: none;
+    transition: all 0.25s; border: 2px solid var(--teal);
+  }
+  .btn-primary:hover { background: var(--teal-lt); border-color: var(--teal-lt); transform: translateY(-2px); }
+  .btn-ghost {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+    background: transparent; color: var(--teal-lt);
+    padding: 1rem 2.5rem; text-decoration: none;
+    border: 2px solid rgba(34,211,238,0.4);
+    transition: all 0.25s;
+  }
+  .btn-ghost:hover { border-color: var(--teal-lt); background: rgba(34,211,238,0.07); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex; gap: 4rem; justify-content: center;
+    margin-top: 5rem; padding-top: 3rem;
+    border-top: 1px solid var(--border);
+    animation: fadeUp 0.8s 0.65s ease both;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem; font-weight: 700; color: var(--teal-lt);
+    display: block; line-height: 1;
+  }
+  .hero-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); margin-top: 0.4rem;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 7rem 3rem; }
+  .container { max-width: 1160px; margin: 0 auto; }
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 1.2rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700; line-height: 1.15;
+    color: #fff; margin-bottom: 1.5rem;
+  }
+  .section-title em { font-style: italic; color: var(--teal-lt); }
+  .section-body {
+    font-size: 1.08rem; font-weight: 300;
+    color: var(--mist); max-width: 680px; line-height: 1.8;
+  }
+
+  /* ── ABOUT / ARISE ── */
+  .about { background: var(--ocean); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-card {
+    background: rgba(8,145,178,0.08);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    position: relative;
+  }
+  .about-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: linear-gradient(to bottom, var(--teal), var(--seafoam));
+  }
+  .about-card-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--teal-lt); margin-bottom: 1rem;
+  }
+  .about-card-body {
+    font-size: 1rem; font-weight: 300; color: var(--mist); line-height: 1.75;
+  }
+  .about-card + .about-card { margin-top: 1.5rem; }
+
+  .arise-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+    background: rgba(6,214,160,0.12);
+    border: 1px solid rgba(6,214,160,0.3);
+    color: var(--seafoam);
+    padding: 0.35rem 0.85rem; margin-bottom: 1.5rem;
+  }
+
+  /* ── CHALLENGE ── */
+  .challenge { background: var(--navy); }
+  .challenge-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px; margin-top: 4rem;
+    background: var(--border);
+  }
+  .challenge-card {
+    background: var(--deep); padding: 2.8rem 2.2rem;
+    position: relative; overflow: hidden;
+    transition: background 0.3s;
+  }
+  .challenge-card:hover { background: var(--ocean); }
+  .challenge-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--teal), transparent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.35s ease;
+  }
+  .challenge-card:hover::after { transform: scaleX(1); }
+  .challenge-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5rem; font-weight: 900;
+    color: rgba(8,145,178,0.12); line-height: 1;
+    position: absolute; top: 1.5rem; right: 1.5rem;
+  }
+  .challenge-icon { font-size: 2rem; margin-bottom: 1.2rem; }
+  .challenge-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem; font-weight: 700;
+    color: #fff; margin-bottom: 0.9rem;
+  }
+  .challenge-body {
+    font-size: 0.95rem; font-weight: 300;
+    color: var(--muted); line-height: 1.75;
+  }
+
+  /* ── WHAT WE OFFER ── */
+  .offer { background: var(--ocean); }
+  .offer-intro { max-width: 680px; margin-bottom: 4rem; }
+  .offer-pillars {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 2rem; margin-top: 1rem;
+  }
+  .pillar {
+    border: 1px solid var(--border); padding: 2.5rem;
+    position: relative; transition: border-color 0.3s, transform 0.3s;
+  }
+  .pillar:hover { border-color: var(--teal); transform: translateY(-4px); }
+  .pillar-phase {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+    margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem;
+  }
+  .phase-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+  .pillar-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700; color: #fff;
+    margin-bottom: 1rem;
+  }
+  .pillar-body {
+    font-size: 0.95rem; font-weight: 300; color: var(--muted);
+    line-height: 1.75; margin-bottom: 1.5rem;
+  }
+  .pillar-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+    border: 1px solid var(--border); color: var(--muted);
+    padding: 0.25rem 0.65rem;
+  }
+  .pillar:hover .tag { border-color: rgba(8,145,178,0.4); color: var(--teal-lt); }
+
+  /* ── SCORECARD CTA ── */
+  .scorecard-section { background: var(--navy); }
+  .scorecard-inner {
+    border: 1px solid var(--border);
+    background: linear-gradient(135deg, rgba(8,145,178,0.07) 0%, rgba(6,214,160,0.04) 100%);
+    padding: 4rem 4rem;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 3rem; align-items: center;
+  }
+  .scorecard-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700; color: #fff;
+    margin-bottom: 0.8rem;
+  }
+  .scorecard-body {
+    font-size: 1rem; font-weight: 300; color: var(--mist);
+    max-width: 580px; line-height: 1.75;
+  }
+  .essentials-strip {
+    display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.8rem;
+  }
+  .essential-chip {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.08em;
+    background: rgba(8,145,178,0.1); border: 1px solid var(--border);
+    color: var(--teal-lt); padding: 0.3rem 0.7rem;
+  }
+
+  /* ── STAKEHOLDERS ── */
+  .stakeholders { background: var(--ocean); }
+  .stakeholders-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; margin-top: 4rem;
+  }
+  .stakeholder-card {
+    background: var(--deep); padding: 2.2rem;
+    border-top: 3px solid var(--border);
+    transition: border-color 0.3s;
+  }
+  .stakeholder-card:hover { border-top-color: var(--teal); }
+  .stakeholder-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+  .stakeholder-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 700; color: #fff;
+    margin-bottom: 0.6rem;
+  }
+  .stakeholder-body {
+    font-size: 0.9rem; color: var(--muted);
+    font-weight: 300; line-height: 1.7;
+  }
+
+  /* ── BLUE FINANCE ── */
+  .blue-finance { background: var(--deep); }
+  .finance-grid {
+    display: grid; grid-template-columns: 1.1fr 1fr;
+    gap: 5rem; align-items: start; margin-top: 4rem;
+  }
+  .finance-card {
+    padding: 2rem 2rem; border-left: 3px solid;
+    margin-bottom: 1.5rem;
+  }
+  .finance-card.mature { border-color: var(--teal); }
+  .finance-card.startup { border-color: var(--seafoam); }
+  .finance-card.community { border-color: var(--amber); }
+  .finance-card-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .mature .finance-card-label { color: var(--teal); }
+  .startup .finance-card-label { color: var(--seafoam); }
+  .community .finance-card-label { color: var(--amber); }
+  .finance-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700; color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  .finance-card-body {
+    font-size: 0.88rem; color: var(--muted); font-weight: 300; line-height: 1.7;
+  }
+  .finance-flow {
+    background: rgba(8,145,178,0.07);
+    border: 1px solid var(--border); padding: 2.5rem;
+  }
+  .flow-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--teal-lt); margin-bottom: 1.5rem;
+  }
+  .flow-step {
+    display: flex; gap: 1rem; align-items: flex-start;
+    margin-bottom: 1.5rem;
+  }
+  .flow-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 700; color: var(--teal);
+    line-height: 1; min-width: 2rem;
+  }
+  .flow-step-body h4 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.95rem; font-weight: 600; color: #fff;
+    margin-bottom: 0.25rem;
+  }
+  .flow-step-body p {
+    font-size: 0.85rem; color: var(--muted); font-weight: 300; line-height: 1.6;
+  }
+  .flow-arrow {
+    text-align: center; color: var(--teal); font-size: 1.2rem;
+    margin: -0.5rem 0 0.5rem 2.5rem;
+  }
+
+  /* ── JOIN CTA ── */
+  .join { background: var(--navy); text-align: center; padding: 8rem 3rem; }
+  .join-inner { max-width: 720px; margin: 0 auto; }
+  .join-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 900;
+    color: #fff; line-height: 1.1; margin-bottom: 1.5rem;
+  }
+  .join-title em { font-style: italic; color: var(--teal-lt); }
+  .join-body {
+    font-size: 1.1rem; font-weight: 300; color: var(--mist);
+    margin-bottom: 3rem; line-height: 1.75;
+  }
+  .join-form {
+    display: flex; gap: 0; max-width: 520px; margin: 0 auto 1.5rem;
+  }
+  .join-form input {
+    flex: 1;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.95rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border); border-right: none;
+    color: #fff; padding: 1rem 1.4rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .join-form input::placeholder { color: var(--muted); }
+  .join-form input:focus { border-color: var(--teal); }
+  .join-form button {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+    background: var(--teal); color: #fff;
+    border: 1px solid var(--teal); padding: 1rem 1.8rem;
+    cursor: pointer; transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .join-form button:hover { background: var(--teal-lt); }
+  .join-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem; letter-spacing: 0.1em; color: var(--muted);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #040B16; padding: 3rem;
+    border-top: 1px solid var(--border);
+  }
+  .footer-inner {
+    max-width: 1160px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1.5rem;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700; color: var(--mist);
+  }
+  .footer-logo span {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--teal); margin-top: 0.2rem;
+  }
+  .footer-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+  .footer-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--teal-lt); }
+  .footer-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem; color: #2A3E52;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: 0.12s; }
+  .reveal-delay-2 { transition-delay: 0.24s; }
+  .reveal-delay-3 { transition-delay: 0.36s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .about-grid, .finance-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .challenge-grid { grid-template-columns: 1fr; }
+    .offer-pillars { grid-template-columns: 1fr; }
+    .stakeholders-grid { grid-template-columns: 1fr; }
+    .scorecard-inner { grid-template-columns: 1fr; }
+    .hero-stats { gap: 2rem; flex-wrap: wrap; }
+    .join-form { flex-direction: column; }
+    .join-form input { border-right: 1px solid var(--border); border-bottom: none; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-main">Coastal Resilience Partnership</div>
+    <div class="nav-logo-sub">An ARISE-US Global Initiative</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#offer">Programme</a></li>
+    <li><a href="#scorecard">Scorecard</a></li>
+    <li><a href="#finance">Blue Finance</a></li>
+    <li><a href="#join">Join</a></li>
+  </ul>
+  <a href="#join" class="nav-cta">Get Involved</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+
+  <!-- SVG waves -->
+  <div class="waves-container">
+    <svg class="wave wave1" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,60 C180,20 360,100 540,60 C720,20 900,100 1080,60 C1260,20 1380,80 1440,60 L1440,120 L0,120 Z" fill="rgba(8,145,178,0.25)"/>
+    </svg>
+    <svg class="wave wave2" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,80 C200,40 400,110 600,70 C800,30 1000,100 1200,70 C1320,50 1390,85 1440,75 L1440,120 L0,120 Z" fill="rgba(6,214,160,0.12)"/>
+    </svg>
+    <svg class="wave wave3" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,90 C240,50 480,115 720,85 C960,55 1200,105 1440,90 L1440,120 L0,120 Z" fill="rgba(8,145,178,0.12)"/>
+    </svg>
+  </div>
+
+  <!-- Particles -->
+  <div class="particles" id="particles"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      ARISE-US Global Initiative · Now Accepting Partners
+    </div>
+
+    <h1 class="hero-title">Coastal <em>Resilience</em></h1>
+    <div class="hero-title-line2">Partnership</div>
+
+    <p class="hero-desc">
+      A global capacity-building initiative helping public and private stakeholders develop, assess, and act on coastal resilience strategy — from asset-level adaptation to ecosystem-scale transformation.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#join" class="btn-primary">Join the Partnership</a>
+      <a href="#offer" class="btn-ghost">Explore the Programme →</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">1B+</span>
+        <span class="hero-stat-label">People in Coastal Risk Zones</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">10</span>
+        <span class="hero-stat-label">Coastal Resilience Essentials</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">3</span>
+        <span class="hero-stat-label">Strategy Phases</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">∞</span>
+        <span class="hero-stat-label">Generational Horizon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="section-tag">Who We Are</p>
+        <h2 class="section-title">Building resilience <em>strategy capacity</em> for a climate-accelerated world</h2>
+        <p class="section-body">
+          Coastal cities and their stakeholders face growing, debilitating uncertainty that undermines resilience and sustainability planning. The Coastal Resilience Partnership equips public agencies, private sector leaders, and communities with the tools, frameworks, and networks to respond.
+        </p>
+        <br>
+        <div class="arise-badge">ARISE-US · Private Sector Alliance for Disaster Resilient Societies</div>
+        <p class="section-body">
+          Hosted under the ARISE-US global framework — the private sector constituency of the UN Office for Disaster Risk Reduction — the Partnership brings institutional credibility, global networks, and a proven resilience methodology to coastal risk.
+        </p>
+      </div>
+      <div class="about-visual reveal">
+        <div class="about-card">
+          <div class="about-card-title">Our Mission</div>
+          <div class="about-card-body">To accelerate coastal resilience strategy development by connecting stakeholders with evidence-based tools, peer networks, blue finance pathways, and cross-sector capacity building.</div>
+        </div>
+        <div class="about-card reveal reveal-delay-1">
+          <div class="about-card-title">The Challenge</div>
+          <div class="about-card-body">From episodic hazard to deep uncertainty — cities now navigate non-linear, compound coastal risks with no probability ceiling, undermining planning across every time horizon.</div>
+        </div>
+        <div class="about-card reveal reveal-delay-2">
+          <div class="about-card-title">The Response</div>
+          <div class="about-card-body">A multi-generational, multi-sequence strategy spanning prevention, response, and recovery — adapting greenfield and brownfield assets, sites, and coastlines to stabilise communities and economies.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHALLENGE -->
+<section class="challenge" id="challenge">
+  <div class="container">
+    <p class="section-tag reveal">The Context</p>
+    <h2 class="section-title reveal">Why coastal resilience <em>cannot wait</em></h2>
+    <div class="challenge-grid">
+      <div class="challenge-card reveal">
+        <span class="challenge-num">01</span>
+        <div class="challenge-icon">🌊</div>
+        <h3 class="challenge-title">Accelerating Hazard</h3>
+        <p class="challenge-body">Sea-level rise, intensifying storm surge, and compound coastal hazards are exceeding design tolerances built into existing infrastructure and planning frameworks globally.</p>
+      </div>
+      <div class="challenge-card reveal reveal-delay-1">
+        <span class="challenge-num">02</span>
+        <div class="challenge-icon">🔴</div>
+        <h3 class="challenge-title">Deep Uncertainty</h3>
+        <p class="challenge-body">Risk models are breaking down. Non-linear cascades, compound events, and no probability ceiling on losses actively undermine confidence in conventional resilience planning.</p>
+      </div>
+      <div class="challenge-card reveal reveal-delay-2">
+        <span class="challenge-num">03</span>
+        <div class="challenge-icon">🏙️</div>
+        <h3 class="challenge-title">Governance Gaps</h3>
+        <p class="challenge-body">Most cities lack integrated coastal resilience strategies that span idiosyncratic asset-level risks and the systemic, ecosystem-level context within which those assets sit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section class="offer" id="offer">
+  <div class="container">
+    <div class="offer-intro">
+      <p class="section-tag reveal">The Programme</p>
+      <h2 class="section-title reveal">Capacity building across <em>all three phases</em> of coastal resilience</h2>
+      <p class="section-body reveal">Our programme equips city teams, private sector partners, and communities with structured tools, peer learning, and applied strategy development across prevention, response, and recovery.</p>
+    </div>
+    <div class="offer-pillars">
+      <div class="pillar reveal">
+        <div class="pillar-phase" style="color: var(--teal);">
+          <span class="phase-dot" style="background: var(--teal);"></span>
+          Phase 01 · Prevention
+        </div>
+        <h3 class="pillar-title">Anticipate & Harden</h3>
+        <p class="pillar-body">Spatial risk assessment, nature-based coastal defence, greenfield siting controls, brownfield retrofit support, and policy and zoning reform frameworks.</p>
+        <div class="pillar-tags">
+          <span class="tag">Risk Mapping</span>
+          <span class="tag">Asset Hardening</span>
+          <span class="tag">Nature-Based Solutions</span>
+          <span class="tag">Policy Frameworks</span>
+        </div>
+      </div>
+      <div class="pillar reveal reveal-delay-1">
+        <div class="pillar-phase" style="color: var(--amber);">
+          <span class="phase-dot" style="background: var(--amber);"></span>
+          Phase 02 · Response
+        </div>
+        <h3 class="pillar-title">Absorb & Withstand</h3>
+        <p class="pillar-body">Early warning systems, critical infrastructure protection, community emergency preparedness, multi-agency coordination, and economic corridor continuity planning.</p>
+        <div class="pillar-tags">
+          <span class="tag">Early Warning</span>
+          <span class="tag">Emergency Protocols</span>
+          <span class="tag">Infrastructure Defence</span>
+          <span class="tag">Coordination</span>
+        </div>
+      </div>
+      <div class="pillar reveal reveal-delay-2">
+        <div class="pillar-phase" style="color: var(--seafoam);">
+          <span class="phase-dot" style="background: var(--seafoam);"></span>
+          Phase 03 · Recovery
+        </div>
+        <h3 class="pillar-title">Rebuild & Transform</h3>
+        <p class="pillar-body">Build-back-better standards, ecosystem rehabilitation, community stabilisation, adaptive coastal redesign, and knowledge integration into multi-sequence strategy.</p>
+        <div class="pillar-tags">
+          <span class="tag">Build Back Better</span>
+          <span class="tag">Ecosystem Restoration</span>
+          <span class="tag">Adaptive Redesign</span>
+          <span class="tag">Knowledge Capture</span>
+        </div>
+      </div>
+      <div class="pillar reveal reveal-delay-3" style="border-color: rgba(8,145,178,0.35); background: rgba(8,145,178,0.04);">
+        <div class="pillar-phase" style="color: var(--teal-lt);">
+          <span class="phase-dot" style="background: var(--teal-lt);"></span>
+          Cross-Cutting · Blue Finance
+        </div>
+        <h3 class="pillar-title">Finance Pathway Development</h3>
+        <p class="pillar-body">Translating scorecard gap analysis into bankable project pipelines — connecting adaptation finance, blue bonds, venture capital, and concessional instruments to coastal resilience priorities.</p>
+        <div class="pillar-tags">
+          <span class="tag">Blue Bonds</span>
+          <span class="tag">Adaptation Finance</span>
+          <span class="tag">Nature-Tech VC</span>
+          <span class="tag">Concessional Capital</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCORECARD -->
+<section class="scorecard-section" id="scorecard">
+  <div class="container">
+    <div class="scorecard-inner reveal">
+      <div>
+        <p class="section-tag">Our Core Tool</p>
+        <h2 class="scorecard-title">The Coastal Resilience Scorecard</h2>
+        <p class="scorecard-body">
+          City teams use the Scorecard to assess strengths and gaps across the 10 Coastal Essentials — producing an evidence-based diagnostic that directly drives investment prioritisation, strategy sequencing, and blue finance use-of-proceeds design.
+        </p>
+        <div class="essentials-strip">
+          <span class="essential-chip">E1 · Governance</span>
+          <span class="essential-chip">E2 · Risk Knowledge</span>
+          <span class="essential-chip">E3 · Finance</span>
+          <span class="essential-chip">E4 · Nature-Based Defence</span>
+          <span class="essential-chip">E5 · Early Warning</span>
+          <span class="essential-chip">E6 · Infrastructure</span>
+          <span class="essential-chip">E7 · Preparedness</span>
+          <span class="essential-chip">E8 · Build Back Better</span>
+          <span class="essential-chip">E9 · Ecosystems</span>
+          <span class="essential-chip">E10 · Recovery</span>
+        </div>
+      </div>
+      <div>
+        <a href="#join" class="btn-primary" style="display: block; text-align: center; padding: 1.2rem 2.5rem;">
+          Request a Scorecard Assessment →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAKEHOLDERS -->
+<section class="stakeholders" id="stakeholders">
+  <div class="container">
+    <p class="section-tag reveal">Who We Serve</p>
+    <h2 class="section-title reveal">A partnership built for <em>the full ecosystem</em></h2>
+    <div class="stakeholders-grid">
+      <div class="stakeholder-card reveal">
+        <div class="stakeholder-icon">🏛️</div>
+        <h3 class="stakeholder-title">City & Government Teams</h3>
+        <p class="stakeholder-body">Municipal resilience offices, urban planners, coastal zone managers, and public infrastructure agencies undertaking multi-generational coastal strategy development.</p>
+      </div>
+      <div class="stakeholder-card reveal reveal-delay-1">
+        <div class="stakeholder-icon">🏢</div>
+        <h3 class="stakeholder-title">Private Sector & Investors</h3>
+        <p class="stakeholder-body">Asset managers, real estate developers, infrastructure operators, insurers, and blue finance investors with material exposure to coastal zones and climate risk.</p>
+      </div>
+      <div class="stakeholder-card reveal reveal-delay-2">
+        <div class="stakeholder-icon">🌱</div>
+        <h3 class="stakeholder-title">Startups & Innovators</h3>
+        <p class="stakeholder-body">Nature-tech ventures, coastal monitoring platforms, climate insurtech companies, and risk analytics firms solving for coastal resilience at scale.</p>
+      </div>
+      <div class="stakeholder-card reveal">
+        <div class="stakeholder-icon">🤝</div>
+        <h3 class="stakeholder-title">Communities & NGOs</h3>
+        <p class="stakeholder-body">Coastal communities, grassroots resilience organisations, and civil society groups working to protect livelihoods, housing, and natural assets in vulnerable zones.</p>
+      </div>
+      <div class="stakeholder-card reveal reveal-delay-1">
+        <div class="stakeholder-icon">🔬</div>
+        <h3 class="stakeholder-title">Research & Academia</h3>
+        <p class="stakeholder-body">Coastal scientists, climate modellers, urban resilience researchers, and applied institutions generating the evidence base for adaptive strategy and policy.</p>
+      </div>
+      <div class="stakeholder-card reveal reveal-delay-2">
+        <div class="stakeholder-icon">🌐</div>
+        <h3 class="stakeholder-title">Multilateral & DFIs</h3>
+        <p class="stakeholder-body">Development finance institutions, UN agencies, climate funds, and multilateral development banks deploying capital and technical assistance for coastal resilience.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLUE FINANCE -->
+<section class="blue-finance" id="finance">
+  <div class="container">
+    <p class="section-tag reveal">Blue Finance Pathways</p>
+    <h2 class="section-title reveal">From scorecard gaps to <em>bankable opportunities</em></h2>
+    <p class="section-body reveal">The Scorecard creates a shared evidence base — translating coastal resilience gaps into structured investment opportunities across the full capital stack and all stakeholder types.</p>
+    <div class="finance-grid">
+      <div>
+        <div class="finance-card mature reveal">
+          <div class="finance-card-label">Adaptation Finance</div>
+          <div class="finance-card-title">Mature Companies & Assets</div>
+          <div class="finance-card-body">Blue bonds, sustainability-linked loans, and asset-level climate adaptation finance for coastal infrastructure retrofit, nature-based development, and hardening of legacy assets.</div>
+        </div>
+        <div class="finance-card startup reveal reveal-delay-1">
+          <div class="finance-card-label">Venture & Growth Capital</div>
+          <div class="finance-card-title">Startups & Innovation</div>
+          <div class="finance-card-body">Equity and growth capital for nature-tech, coastal monitoring, climate insurtech, and risk analytics ventures operating at the frontier of coastal resilience solutions.</div>
+        </div>
+        <div class="finance-card community reveal reveal-delay-2">
+          <div class="finance-card-label">Concessional & Grants</div>
+          <div class="finance-card-title">Communities & Public Coastlines</div>
+          <div class="finance-card-body">Concessional finance, grants, and coastal ecosystem restoration bonds for public asset hardening, community resilience programmes, and social adaptation at the local level.</div>
+        </div>
+      </div>
+      <div class="finance-flow reveal reveal-delay-1">
+        <div class="flow-title">How the Scorecard Drives Capital</div>
+        <div class="flow-step">
+          <div class="flow-num">1</div>
+          <div class="flow-step-body">
+            <h4>City Team Assessment</h4>
+            <p>Multi-stakeholder team completes the 10-Essential Scorecard, scoring 1–5 across prevention, response, and recovery dimensions.</p>
+          </div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">
+          <div class="flow-num">2</div>
+          <div class="flow-step-body">
+            <h4>Gap Analysis Output</h4>
+            <p>Gaps below the 3.0 resilience threshold are identified, prioritised, and mapped to asset types, spatial areas, and communities.</p>
+          </div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">
+          <div class="flow-num">3</div>
+          <div class="flow-step-body">
+            <h4>Use-of-Proceeds Design</h4>
+            <p>Gaps are translated into structured blue finance use-of-proceeds frameworks, matched to the appropriate capital instruments and investor types.</p>
+          </div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">
+          <div class="flow-num">4</div>
+          <div class="flow-step-body">
+            <h4>Investment Pipeline</h4>
+            <p>Bankable projects are developed, connected to Partnership investors, and tracked against Scorecard improvement across the multi-sequence strategy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section class="join" id="join">
+  <div class="join-inner">
+    <p class="section-tag" style="text-align:center;">Get Involved</p>
+    <h2 class="join-title reveal">Join the <em>Partnership</em></h2>
+    <p class="join-body reveal">
+      Whether you're a city building its first coastal resilience strategy, an investor seeking blue finance opportunities, or a startup working on coastal solutions — the Partnership is built for you.
+    </p>
+    <div class="join-form reveal">
+      <input type="email" placeholder="Your organisation email address">
+      <button type="submit">Join Now</button>
+    </div>
+    <p class="join-note reveal">No spam. We'll reach out to understand your context and match you to the right entry point.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      Coastal Resilience Partnership
+      <span>An ARISE-US Global Initiative</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#offer">Programme</a></li>
+      <li><a href="#scorecard">Scorecard</a></li>
+      <li><a href="#finance">Blue Finance</a></li>
+      <li><a href="#join">Contact</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Coastal Resilience Partnership · ARISE-US</div>
+  </div>
+</footer>
+
+<script>
+// Particle generator
+(function() {
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 4 + 2;
+    p.style.cssText = `
+      width: ${size}px; height: ${size}px;
+      left: ${Math.random() * 100}%;
+      --dur: ${Math.random() * 10 + 8}s;
+      --delay: ${Math.random() * 10}s;
+      opacity: 0;
+    `;
+    container.appendChild(p);
+  }
+})();
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => observer.observe(el));
+
+// Smooth nav highlight
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+</script>
+</body>
+</html>
